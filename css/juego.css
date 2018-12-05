@@ -1,33 +1,81 @@
 /*Código armado por La Foca Loca S.A. No modificar*/
 body {
   font-family: "Roboto", sans-serif;
-  font-size:35px;
-  width: 940px;
+  font-size: 35px;
   margin: 5% auto;
   min-height: 100%;
-  background-image: url(../images/adventure.jpg);
+  background-image: url(../images/fondo.jpg);
+  background-position-y: -200px;
+  background-repeat: repeat-x;
+  background-color: #6ecff3;
 }
+
+.col-40 h1 {
+  font-size: 100%;
+  font-family: 'Bangers', cursive;
+  color: #67a6ec;
+  line-height: 1em;
+  margin: 5px auto;
+  letter-spacing: 0.1em;
+}
+
 h2 {
-  color:black;
+  color:#3c629d;
   font-size: 15px;
+  line-height: 1em;
+  margin-top: 10%; 
+  font-family: 'Carter One', cursive;
+}
+
+h3 {
+  padding: 5px 0;
+  font-size: 0.8rem;
+  font-family: 'Carter One', cursive;
+  font-weight: 200;
+  color:#eb5469;
 }
 
 ul {
   padding-left: 0;
   list-style: none;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
+
 li {
   padding: 5px 0;
   animation: fadein 5s;
-}
-li::before {
-  content: "• ";
-  color: #EC6778;
+  font-size: 0.8rem;
+  font-family: 'Noto Sans TC', sans-serif;
+  display: inline-flex;
 }
 
-.col-40 h1 {
-  font-size:100%;
-  color:#EC6778;
+li::before {
+  content: "•";
+  color: #EC6778;
+  font-size: 50px;
+  line-height: 1.2rem;
+}
+
+/* MOVIMIENTOS */
+
+.movimientos {
+  display: block;
+  width: 50%;
+}
+.suma-movimientos {
+  font-size: 100%;
+  font-family: 'Bangers', cursive;
+  color: #eb5469;
+  margin-top: 15px;
+}
+
+/* Estructura & Grilla */
+
+.contenedor-juego {
+  width: 960px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .col-40, .col-60 {
@@ -36,20 +84,25 @@ li::before {
   vertical-align: top;
   box-sizing: border-box;
 }
+
 .col-40 {
-  width: 40%;
+  width: 30%;
   background: #FFF;
   padding: 30px;
   color: #000;
 }
 
 .col-60 {
-  width: 60%;
-  background: #E84A5F;
+  width: 70%;
+  background: #ed496d;
 }
 
 #flecha{
-  font-size: 60px;
+  font-size: 40px;
+}
+
+.img-objetivo img {
+  width: 150px;
 }
 
 .texto-centrado {
@@ -57,8 +110,8 @@ li::before {
 }
 
 #juego {
-  width: 600px;
-  height: 600px;
+  width: 100%;
+  height: 100%;
 }
 
 #juego div {
@@ -72,10 +125,50 @@ li::before {
   box-sizing: border-box;
   float: left;
   border: 1px solid white;
+  padding: 0;
+  margin: 0;
+  flex-flow: column wrap;
+  display: flex;
 }
 
 .piezas img {
   width: 100%;
+}
+
+/* FOOTER */
+
+.contenedor-elementos {
+  position: fixed;
+  bottom: -6px;
+  width: 100%;
+  z-index: 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+.elemento-izquierda {
+  width: 15%;
+  left: 3%;
+  position: fixed;
+  bottom: 4px;
+}
+
+.elemento-derecha {
+  width: 10%;
+  right: 3%;
+  position: fixed;
+  bottom: -21px;
+}
+
+#footer {
+  background-image: url(../images/footer.png);
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  background-repeat: no-repeat;
+  height: 220px;
+  background-size: cover;
+  z-index: -1;
 }
 
 @keyframes fadein {

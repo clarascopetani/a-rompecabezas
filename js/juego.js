@@ -1,5 +1,5 @@
 // Arreglo que contiene las intrucciones del juego 
-var instrucciones = [];
+var instrucciones = ["Move las flechas del teclado para intercabiar las piezas", "Hacelo hasta que logres la misma imagen del Objetivo", "Tenes 50 movimientos"];
 // Arreglo para ir guardando los movimientos que se vayan realizando
 var movimientos = [];
 
@@ -11,6 +11,12 @@ var grilla = [
     [7, 8, 9]
 ];
 
+var grillaOriginal = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9]
+];
+
 /* Estas dos variables son para guardar la posición de la pieza vacía. 
 Esta posición comienza siendo la [2, 2]*/
 var filaVacia = 2;
@@ -20,22 +26,49 @@ var columnaVacia = 2;
 Cada elemento de este arreglo deberá ser mostrado en la lista con id 'lista-instrucciones'. 
 Para eso deberás usar la función ya implementada mostrarInstruccionEnLista().
 Podés ver su implementación en la ultima parte de este codigo. */
+
 function mostrarInstrucciones(instrucciones) {
     //COMPLETAR
+    for (var i = 0; i < instrucciones.length; i++){
+      console.log(instrucciones[i]);
+      mostrarInstruccionEnLista(instrucciones[i], 'lista-instrucciones');
+    }   
 }
 
 /* COMPLETAR: Crear función que agregue la última dirección al arreglo de movimientos
 y utilice actualizarUltimoMovimiento para mostrarlo en pantalla */
 
+function ultimoMovimiento(movimiento){
+  movimientos.push(movimiento);
+  actualizarUltimoMovimiento(movimiento);
+}
+
 /* Esta función va a chequear si el Rompecabezas esta en la posicion ganadora. 
 Existen diferentes formas de hacer este chequeo a partir de la grilla. */
 function chequearSiGano() {
     //COMPLETAR
+    if(sumaMovimientosTeclado <= 50){
+    for (var i = 0; i < grilla.length; i++){
+      for (var j = 0; j < grilla[i].length; j++){
+        if (grilla[i][j] !== grillaOriginal[i][j]){     
+          return false;
+        }
+      }
+    } return true;
+  } else if(sumaMovimientosTeclado > 50){
+    cartePerdsite();
+  }     
 }
 
 // Implementar alguna forma de mostrar un cartel que avise que ganaste el juego
 function mostrarCartelGanador() {
     //COMPLETAR
+    alert("FELICITACIONES GANASTE");
+}
+
+function cartePerdsite() {
+  //COMPLETAR
+  alert("PERDISTE");
 }
 
 /* Función que intercambia dos posiciones en la grilla.
@@ -50,18 +83,38 @@ Se te ocurre cómo solucionar esto con una variable temporal?
 */
 function intercambiarPosicionesGrilla(filaPos1, columnaPos1, filaPos2, columnaPos2) {
     //COMPLETAR
-}
+    var valorAnterior = grilla[filaPos1][columnaPos1];
+    grilla[filaPos1][columnaPos1] =  grilla[filaPos2][columnaPos2];
+    grilla[filaPos2][columnaPos2] = valorAnterior;
+
+}  
 
 // Actualiza la posición de la pieza vacía
 function actualizarPosicionVacia(nuevaFila, nuevaColumna) {
     //COMPLETAR
+    filaVacia = nuevaFila;
+    columnaVacia = nuevaColumna;
 }
 
 
 // Para chequear si la posicón está dentro de la grilla.
 function posicionValida(fila, columna) {
     //COMPLETAR
+    var esValida = false;
+    if(fila <= 2 && columna <= 2 && fila >= 0 && columna >= 0){
+      esValida = true;
+    } 
+    return esValida;
 }
+var sumaMovimientosTeclado = 0;
+
+function cantidadMovimientos(nuevomovimiento){ 
+  sumaMovimientosTeclado =  sumaMovimientosTeclado + nuevomovimiento;
+  mostrarMovimientos = document.getElementById('total-movimientos');
+  mostrarMovimientos.textContent = parseInt(sumaMovimientosTeclado);
+}
+
+
 
 /* Movimiento de fichas, en este caso la que se mueve es la blanca intercambiando su posición con otro elemento.
 Las direcciones están dadas por números que representa: arriba (38), abajo (40), izquierda (37), derecha (39) */
@@ -71,38 +124,41 @@ function moverEnDireccion(direccion) {
 
   // Mueve pieza hacia la abajo, reemplazandola con la blanca
   if (direccion === codigosDireccion.ABAJO) {
-    nuevaFilaPiezaVacia = filaVacia - 1;
-    nuevaColumnaPiezaVacia = columnaVacia;
-  }
-    
-  // Mueve pieza hacia arriba, reemplazandola con la blanca
-  else if (direccion === codigosDireccion.ARRIBA) {
     nuevaFilaPiezaVacia = filaVacia + 1;
     nuevaColumnaPiezaVacia = columnaVacia;
   }
-    
+ 
+  // Mueve pieza hacia arriba, reemplazandola con la blanca
+  else if (direccion === codigosDireccion.ARRIBA) {
+    nuevaFilaPiezaVacia = filaVacia - 1;
+    nuevaColumnaPiezaVacia = columnaVacia;
+  }
+ 
   // Mueve pieza hacia la derecha, reemplazandola con la blanca
   else if (direccion === codigosDireccion.DERECHA) {
-    //COMPLETAR
+    nuevaFilaPiezaVacia = filaVacia;
+    nuevaColumnaPiezaVacia = columnaVacia + 1;
   }
-    
+ 
   // Mueve pieza hacia la izquierda, reemplazandola con la blanca
   else if (direccion === codigosDireccion.IZQUIERDA) {
-    // COMPLETAR
+    nuevaFilaPiezaVacia = filaVacia;
+    nuevaColumnaPiezaVacia = columnaVacia - 1;
   }
 
   /* A continuación se chequea si la nueva posición es válida, si lo es, se intercambia. 
   Para que esta parte del código funcione correctamente deberás haber implementado 
   las funciones posicionValida, intercambiarPosicionesGrilla y actualizarPosicionVacia */
-
-    if (posicionValida(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia)) {
-        intercambiarPosiciones(filaVacia, columnaVacia, nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
-        actualizarPosicionVacia(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
-
-  //COMPLETAR: Agregar la dirección del movimiento al arreglo de movimientos
-
-    }
+  
+  if (posicionValida(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia)) {
+      intercambiarPosiciones(filaVacia, columnaVacia, nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
+      actualizarPosicionVacia(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
+      //COMPLETAR: Agregar la dirección del movimiento al arreglo de movimientos
+    console.log(direccion);      
+    ultimoMovimiento(direccion);
+  }
 }
+
 
 
 //////////////////////////////////////////////////////////
@@ -137,7 +193,6 @@ function intercambiarPosiciones(fila1, columna1, fila2, columna2) {
 
   intercambiarPosicionesGrilla(fila1, columna1, fila2, columna2);
   intercambiarPosicionesDOM('pieza' + pieza1, 'pieza' + pieza2);
-
 }
 
 /* Intercambio de posiciones de los elementos del DOM que representan
@@ -180,9 +235,9 @@ function actualizarUltimoMovimiento(direccion) {
 /* Esta función permite agregar una instrucción a la lista
 con idLista. Se crea un elemento li dinámicamente con el texto 
 pasado con el parámetro "instrucción". */
-function mostrarInstruccionEnLista(instruccion, idLista) {
-  var ul = document.getElementById(idLista);
-  var li = document.createElement("li");
+function mostrarInstruccionEnLista(instruccion, idlista) {
+  var ul = document.getElementById(idlista);
+  var li = document.createElement('li');
   li.textContent = instruccion;
   ul.appendChild(li);
 }
@@ -221,6 +276,7 @@ function capturarTeclas() {
       evento.which === codigosDireccion.IZQUIERDA) {
 
       moverEnDireccion(evento.which);
+      cantidadMovimientos(1);
 
         var gano = chequearSiGano();
         if (gano) {
@@ -230,7 +286,9 @@ function capturarTeclas() {
             }
             evento.preventDefault();
         }
+        console.log(evento.which);
     })
+      
 }
 
 /* Se inicia el rompecabezas mezclando las piezas 60 veces 

@@ -4,32 +4,38 @@
     <meta charset="utf-8">
     <title>BMO Arcade</title>
     <link rel="stylesheet" href="css/juego.css">
+    <link href="https://fonts.googleapis.com/css?family=Bangers|Carter+One|Noto+Sans+TC" rel="stylesheet">
   </head>
   <body>
+    <div id="cartelGano"></div>
+
+    </div>
+    <div class="contenedor-juego">
     <div class="col-40">
       <div id="titulo">
-        <h1>Titulo</h1>
+        <h1>Rompecabezas</h1>
       </div>
       <div id="instrucciones">
         <h2>Instrucciones</h2>
         <ul id="lista-instrucciones">
+
         </ul>
       </div>
       <div id="objetivo">
         <h2>Objetivo</h2>
-        <div class="texto-centrado">
-            <img src="images/final.png" alt="Muestra de objetivo final" width="100%">
+        <div class="img-objetivo">
+            <img src="images/final.png" alt="Muestra de objetivo final">
         </div>
       </div>
       <div id="ultimo-mov">
         <h2>Último Movimiento</h2>
-        <div id="flecha" class="texto-centrado">
-          
+        <div class="movimientos texto-centrado">
+          <div id="flecha"></div>
+          <div id="total-movimientos" class="suma-movimientos"></div>            
         </div>
       </div>
-      
-    </div>
-    
+      </div>
+
     <div class="col-60">
       <div id="juego" class="piezas">
         <div id="pieza1" >
@@ -57,12 +63,17 @@
           <img src="images/80.jpg" alt="pieza 8">
         </div>
         <div id="pieza9">
-          
+            <img src="images/vacia.gif" alt="pieza vacia">
         </div>
       </div>
     </div>
+    </div>
+    <div class="contenedor-elementos">
+        <div><img class="elemento-izquierda" src="images/finn.png"></div>
+        <div><img class="elemento-derecha" src="images/arbol.png"></div>
+    </div>
     <div id="footer">
-      
+
     </div>
     <script src="js/juego.js"></script>
   </body>
